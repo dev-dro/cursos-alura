@@ -12,7 +12,7 @@
 <form:form action="${s:mvcUrl('PC#gravar').build()}" method="POST" commandName="produto">
     <div>
         <label>Título</label>
-        <input type="text" name="titulo"/>
+        <form:input type="text" path="titulo"/>
         <form:errors path="titulo"/>
     </div>
     <div>
@@ -22,14 +22,19 @@
     </div>
     <div>
         <label>Páginas</label>
-        <input type="text" name="paginas"/>
+        <form:input type="text" path="paginas"/>
         <form:errors path="paginas"/>
+    </div>
+    <div>
+        <label>Data de Lançamento</label>
+        <form:input path="dataLancamento" type="text" />
+        <form:errors path="dataLancamento" />
     </div>
     <c:forEach items="${tipos}" var="tipoPreco" varStatus="status">
         <div>
             <label>${tipoPreco}</label>
-            <input type="text" name="precos[${status.index}].valor">
-            <input type="hidden" name="precos[${status.index}].tipo" value="${tipoPreco}">
+            <form:input type="text" path="precos[${status.index}].valor"/>
+            <form:input type="hidden" path="precos[${status.index}].tipo" value="${tipoPreco}"/>
         </div>
     </c:forEach>
 

@@ -1,6 +1,9 @@
 package br.com.casadocodigo.loja.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -16,6 +19,9 @@ public class Produto {
 
     @ElementCollection
     private List<Preco> precos;
+
+    @DateTimeFormat
+    private Calendar dataLancamento;
 
     public int getId() {
         return id;
@@ -57,12 +63,23 @@ public class Produto {
         this.precos = precos;
     }
 
+    public Calendar getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(Calendar dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
-                "titulo='" + titulo + '\'' +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", paginas=" + paginas +
+                ", precos=" + precos +
+                ", dataLancamento=" + dataLancamento +
                 '}';
     }
 }
