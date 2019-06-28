@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
             <nav id="main-nav">
 
                 <ul class="clearfix">
-                    <li><a href="/cart" rel="nofollow">Carrinho</a></li>
+                    <li><a href="#" rel="nofollow">Seu Carrinho (${carrinhoCompras.quantidade})</a></li>
                     <li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
                     <li><a href="/pages/perguntas-frequentes" rel="nofollow">Perguntas Frequentes</a></li>
                 </ul>
@@ -74,7 +75,7 @@
     </header>
 
     <section class="buy-options clearfix">
-        <form action="/carrinho/add" method="post" class="container">
+        <form action="${s:mvcUrl('CCC#add').build()}" method="post" class="container">
             <input type="hidden" value="${produto.id}" name="produtoId">
             <ul id="variants" class="clearfix">
                 <c:forEach items="${produto.precos}" var="preco">
@@ -106,7 +107,9 @@
                 Número de páginas: <span>${produto.paginas}</span>
             </p>
             <p></p>
-            <p>Data de publicação: ${produto.dataLancamento}</p>
+            <p>Data de publicação:
+                <fmt:formatDate pattern="dd/MM/yyyy" value="${produto.dataLancamento.time}"/>
+            </p>
             <p>
                 Encontrou um erro? <a href='/submissao-errata' target='_blank'>Submeta uma errata</a>
             </p>
@@ -159,13 +162,10 @@
             <div id="form-newsletter">
                 <form action="" method="POST" id="ss-form" class="form-newsletter">
                     <ul>
-                        <li><input type="hidden" name="pageNumber" value="0"/><input type="hidden" name="backupCache"
-                                                                                     value=""/><input type="email"
-                                                                                                      name="entry.0.single"
-                                                                                                      value=""
-                                                                                                      class="ss-q-short"
-                                                                                                      id="entry_0"
-                                                                                                      placeholder="seu@email.com"/>
+                        <li><input type="hidden" name="pageNumber" value="0"/>
+                            <input type="hidden" name="backupCache" value=""/>
+                            <input type="email" name="entry.0.single" value="" class="ss-q-short" id="entry_0"
+                                   placeholder="seu@email.com"/>
                         </li>
                         <li><input type="submit" name="submit" value="Quero Receber!" id="submit-newsletter"/></li>
                     </ul>
