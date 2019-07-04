@@ -2,7 +2,12 @@ package br.com.casadocodigo.loja.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -105,5 +110,9 @@ public class Produto {
                 ", precos=" + precos +
                 ", dataLancamento=" + dataLancamento +
                 '}';
+    }
+
+    public BigDecimal precoPara(TipoPreco tipoPreco) {
+        return precos.stream().filter(preco -> preco.getTipo().equals(tipoPreco)).findFirst().get().getValor();
     }
 }
